@@ -10,6 +10,8 @@
 SC_MODULE(TimerCounter) {
 	//input
 
+
+	//TLM
 	sc_in<bool> clk;
 	sc_in<bool> reset;
 	sc_in<bool>read_en, write_en;
