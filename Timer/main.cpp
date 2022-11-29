@@ -28,8 +28,14 @@ int sc_main(int argc, char* argv[]) {
 	Tb->read_en(read_en_sig);
 	Tb->write_en(write_en_sig);
 	Tb->reset(rst);
+	clock_t start, end;
+	double time_taken;
+	start = clock();
 
-	sc_start(100,SC_MS);//run for 100ms
-	
+	sc_start(100, SC_MS);//run for 100ms
+
+	end = clock();
+	time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+	cout << "@Wall Clock time Simulation takes: " << time_taken <<" seconds" << endl;
 	return 0;
 }

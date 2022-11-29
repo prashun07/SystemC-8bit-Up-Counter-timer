@@ -13,7 +13,6 @@ SC_MODULE(testbench) {
 
 	bool intr_message = false;
 
-	void read_data();
 	void interrupt();
 	void write_tb();
 	void write_method(sc_uint<8>addr, sc_uint<8>val);
@@ -24,16 +23,10 @@ SC_MODULE(testbench) {
 		SC_THREAD(write_tb);
 		SC_METHOD(interrupt);
 		sensitive << intr1 << intr0;
-		SC_METHOD(read_data);
-		sensitive << d_out;
 	}
 
 };
-void testbench::read_data() {
-	if (d_out.read() != 0) {
-		cout << "At:: " << sc_time_stamp() << ": Register Value is : " << d_out.read() << endl;
-	}
-}
+
 
 void testbench::interrupt() {
 	if (intr_message) {
@@ -50,6 +43,7 @@ void testbench::read_method(sc_uint<8>adr) {
 	addr.write(adr);
 	read_en.write(1);
 	wait(SC_ZERO_TIME);
+	cout << "At:: " << sc_time_stamp() << ": Register Value is : " << d_out.read() << endl;
 	read_en.write(0);
 	wait(SC_ZERO_TIME);
 }
@@ -118,5 +112,5 @@ void testbench::write_tb() {
 	cout << "Turn OFF Interrupt message At: " << sc_time_stamp() << endl;
 	intr_message = false;
 	write_method(0x0, 1);
-	
+
 }

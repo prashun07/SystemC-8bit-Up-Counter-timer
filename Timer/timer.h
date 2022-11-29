@@ -86,7 +86,7 @@ SC_MODULE(TimerCounter) {
 		sensitive << reset;
 
 		SC_METHOD(write_timer);
-		sensitive << addr << write_en << read_en;
+		sensitive << write_en << read_en;
 
 		SC_METHOD(timer_counter);
 		sensitive << clk.pos();
